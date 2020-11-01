@@ -20,3 +20,5 @@ visualize_history_file(history)
 #calculate group average response time from history file
 group_response_time = get_group_avg_response_time(history)
 print(group_response_time)
+#Elapsed time: 381.918144 s
+#[10846.0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
