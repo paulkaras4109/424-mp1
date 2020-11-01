@@ -21,8 +21,13 @@ def process_frame(frame):
         A list of tasks with each task containing image_path and other necessary information. 
     """
 
-    cluster_boxes_data = get_bbox_info(frame, box_info)
-    
+    tasklist = []
+    #cluster_boxes_data = get_bbox_info(frame, box_info)
     # student's code here
-    
+    task = TaskEntity(frame.path, coord=[0,0,1920,1080])
+    tasklist.append(task)
+
+    return tasklist
+
+
     
