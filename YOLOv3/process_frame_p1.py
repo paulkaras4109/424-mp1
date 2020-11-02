@@ -24,13 +24,8 @@ def process_frame(frame):
     tasklist = []
     #cluster_boxes_data = get_bbox_info(frame, box_info)
     # student's code here
-    #box_info = read_json_file(frame.path)
-    cluster_boxes_data = get_bbox_info(frame, box_info)
-    for bbox in cluster_boxes_data:
-        priority = int(bbox[4]/10)
-        task = TaskEntity(frame.path, coord = bbox[:4], priority = priority, depth = bbox[4])
-        tasklist.append(task)
-    
+    task = TaskEntity(frame.path, coord=[0,0,1920,1080])
+    tasklist.append(task)
 
     return tasklist
 
