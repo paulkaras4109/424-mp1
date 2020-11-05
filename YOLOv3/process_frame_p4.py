@@ -34,7 +34,7 @@ def process_frame(frame):
             abs(bbox[1] - rb[0][1]) < threshold and 
             abs(bbox[2] - rb[0][2]) < threshold and 
             abs(bbox[3] - rb[0][3]) < threshold):
-                rb = tuple(bbox[:4], frame_num)
+                rb = (bbox[:4], frame_num)
                 simFound = True
                 break
         
@@ -42,7 +42,8 @@ def process_frame(frame):
             priority = int(bbox[4]/10)
             task = TaskEntity(frame.path, coord = bbox[:4], priority = priority, depth = bbox[4])
             tasklist.append(task)
-            recent_boxes.append(tuple(bbox[:4], frame_num))
+            tp = (bbox[:4], frame_num)
+            recent_boxes.append(tp)
     
     frame_num += 1
     return tasklist
