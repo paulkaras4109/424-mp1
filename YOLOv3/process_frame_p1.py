@@ -2,8 +2,8 @@ from scheduling.misc import *
 from scheduling.TaskEntity import *
 
 
-# read the input bounding box data from file
-box_info = read_json_file('../dataset/waymo_ground_truth_flat.json')
+# read the input cluster box data from file
+box_info = read_json_file('../dataset/depth_clustering_detection_flat.json')
 
 
 def process_frame(frame):
@@ -18,16 +18,24 @@ def process_frame(frame):
         param1: The image frame to be processed. 
 
     Returns:
-        A list of tasks with each task containing image_path and other necessary information. 
+        A list of task_batches with each task_batch containing some tasks.
     """
-
-    tasklist = []
-    #cluster_boxes_data = get_bbox_info(frame, box_info)
-    # student's code here
-    task = TaskEntity(frame.path, coord=[0,0,1920,1080])
-    tasklist.append(task)
-
-    return tasklist
-
-
     
+    cluster_boxes_data = get_cluster_box_info(frame, box_info)
+
+    task_batches = []
+
+    # student's code here
+    for cluster in cluster_boxes_data:
+        tmp_coord = []
+        tmp_coord.append(cluster[0])
+        tmp_coord.append(cluster[1])
+        tmp_coord.append(cluster[2])
+        tmp_coord.append(cluster[3])
+        task = TaskEntity(frame.path, coord = tmp_coord, depth = cluster[4])
+        task_batch = TaskBatch([task], task.img_width, task.img_height, priority = task.depth) 
+
+        task_batches.append(task_batch)
+    
+
+    return task_batches
